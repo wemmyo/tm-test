@@ -11,15 +11,6 @@ import routes from "../../routes";
 interface EligibilityCheckScreenProps {}
 
 const EligibilityCheckScreen: React.FC<EligibilityCheckScreenProps> = () => {
-  // const [cards, setCards] = useState<
-  //   {
-  //     label: string;
-  //     apr: number;
-  //     balanceTransferOfferDuration: number;
-  //     purchaseOfferDuration: number;
-  //     credit: number;
-  //   }[]
-  // >([]);
   const [title, onTitleChange] = useState("");
   const [firstName, onFirstNameChange] = useState("");
   const [lastName, onLastNameChange] = useState("");
@@ -65,7 +56,7 @@ const EligibilityCheckScreen: React.FC<EligibilityCheckScreenProps> = () => {
   };
 
   return (
-    <div>
+    <div className="container">
       <Form onSubmit={handleSubmit}>
         <h1>Check Eligibility</h1>
         <Select
@@ -104,6 +95,7 @@ const EligibilityCheckScreen: React.FC<EligibilityCheckScreenProps> = () => {
         <Input
           onChange={(e) => onHouseNumberChange(e.target.value)}
           value={houseNumber}
+          type="number"
           label="House number"
         />
         <Input
