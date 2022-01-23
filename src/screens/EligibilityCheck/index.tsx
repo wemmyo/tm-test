@@ -1,134 +1,130 @@
-import * as React from "react";
-import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
+import React, { useState } from "react";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
 
-const EligibilitySchema = Yup.object().shape({
-  employment: Yup.string().required("Required"),
-  income: Yup.number().required("Required"),
-});
+import Button from "../../components/Button";
+import Input from "../../components/Input";
+import Select from "../../components/Select";
+import Form from "../../components/Form";
+import routes from "../../routes";
 
 interface EligibilityCheckScreenProps {}
 
-const users = [
-  {
-    id: 1,
-    title: "Mr",
-    firstName: "Ollie",
-    lastName: "Murphree",
-    dob: "1970-07-01",
-    income: 34000,
-    employment: "full-time",
-    houseNumber: 700,
-    postcode: "BS14 9PR",
-  },
-  {
-    id: 2,
-    title: "Miss",
-    firstName: "Elizabeth",
-    lastName: "Edmundson",
-    dob: "1984-06-26",
-    income: 17000,
-    employment: "student",
-    houseNumber: 177,
-    postcode: "PH12 8UW",
-  },
-  {
-    id: 3,
-    title: "Mr",
-    firstName: "Trevor",
-    lastName: "Rieck",
-    dob: "1990-09-07",
-    income: 15000,
-    employment: "part-time",
-    houseNumber: 343,
-    postcode: "TS25 2NF",
-  },
-];
-
-const cards = {
-  studentLife: {
-    label: "Student Life",
-    apr: 0.189,
-    balanceTransferOfferDuration: 0,
-    purchaseOfferDuration: 6,
-    credit: 1200,
-  },
-  anywhere: {
-    label: "Anywhere Card",
-    apr: 0.339,
-    balanceTransferOfferDuration: 0,
-    purchaseOfferDuration: 0,
-    credit: 300,
-  },
-  liquid: {
-    label: "Liquid Card",
-    apr: 0.339,
-    balanceTransferOfferDuration: 12,
-    purchaseOfferDuration: 6,
-    credit: 3000,
-  },
-};
-
-const checkEligibility = ({
-  employment,
-  income,
-}: {
-  employment: string;
-  income: number;
-}) => {
-  const allEligibleCards = [cards.anywhere];
-  if (income > 16000) {
-    allEligibleCards.push(cards.liquid);
-  }
-  if (employment === "student") {
-    allEligibleCards.push(cards.studentLife);
-  }
-  return allEligibleCards;
-};
-
 const EligibilityCheckScreen: React.FC<EligibilityCheckScreenProps> = () => {
-  console.log(checkEligibility({ employment: "student", income: 17000 }));
+  // const [cards, setCards] = useState<
+  //   {
+  //     label: string;
+  //     apr: number;
+  //     balanceTransferOfferDuration: number;
+  //     purchaseOfferDuration: number;
+  //     credit: number;
+  //   }[]
+  // >([]);
+  const [title, onTitleChange] = useState("");
+  const [firstName, onFirstNameChange] = useState("");
+  const [lastName, onLastNameChange] = useState("");
+  const [dob, onDobChange] = useState("");
+  const [income, onIncomeChange] = useState("");
+  const [employment, onEmploymentChange] = useState("");
+  const [houseNumber, onHouseNumberChange] = useState("");
+  const [postCode, onPostCodeChange] = useState("");
+
+  let history = useHistory();
+
+  // const renderCards = cards.map((card, index) => (
+  //   <p key={index}>{card.label}</p>
+  // ));
+  // console.log(checkEligibility({ employment: "student", income: 17000 }));
+
+  // const submitForm = (values: { employment: string; income: number }) => {
+  //   const eligibleCards = checkEligibility(values);
+  //   setCards(eligibleCards);
+  // };
+
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    const user = {
+      title,
+      firstName,
+      lastName,
+      dob,
+      income,
+      employment,
+      houseNumber,
+      postCode,
+    };
+    const url = "http://localhost:4400/eligibility";
+    // console.log(values);
+
+    const eligibleCards = await axios.post(url, user);
+    console.log(eligibleCards);
+
+    history.push(routes.ELIGIBLE_CARDS, {
+      eligibleCards: eligibleCards.data,
+    });
+  };
 
   return (
     <div>
-      <h1>Check Eligibility</h1>
-      <Formik
-        initialValues={{
-          employment: "",
-          income: "",
-        }}
-        validationSchema={EligibilitySchema}
-        onSubmit={(values) => {
-          // same shape as initial values
-          console.log(values);
-        }}
-      >
-        {({ errors, touched }) => (
-          <Form>
-            <Field
-              as="select"
-              name="employment"
-              placeholder="Employment status"
-            >
-              <option hidden>Choose one</option>
-              <option value="student">Student</option>
-              <option value="employed">Employed</option>
-            </Field>
-            {errors.employment && touched.employment ? (
-              <div>{errors.employment}</div>
-            ) : null}
-            <Field name="income" placeholder="income" />
-            {errors.income && touched.income ? (
-              <div>{errors.income}</div>
-            ) : null}
+      <Form onSubmit={handleSubmit}>
+        <h1>Check Eligibility</h1>
+        <Select
+          onChange={(e) => onTitleChange(e.target.value)}
+          value={title}
+          label="Title"
+        >
+          <option hidden>Choose title</option>
+          <option value="mr">Mr</option>
+          <option value="mrs">Mrs</option>
+          <option value="miss">Miss</option>
+        </Select>
 
-            <button type="submit">Submit</button>
-          </Form>
-        )}
-      </Formik>
-      <section>
-        <h1>Cards you're eligibile for</h1>
-      </section>
+        <Input
+          onChange={(e) => onFirstNameChange(e.target.value)}
+          value={firstName}
+          label="First Name"
+        />
+        <Input
+          onChange={(e) => onLastNameChange(e.target.value)}
+          value={lastName}
+          label="Last Name"
+        />
+        <Input
+          onChange={(e) => onDobChange(e.target.value)}
+          value={dob}
+          type="date"
+          label="Date Of Birth"
+        />
+        <Input
+          onChange={(e) => onIncomeChange(e.target.value)}
+          value={income}
+          type="number"
+          label="Income"
+        />
+        <Input
+          onChange={(e) => onHouseNumberChange(e.target.value)}
+          value={houseNumber}
+          label="House number"
+        />
+        <Input
+          onChange={(e) => onPostCodeChange(e.target.value)}
+          value={postCode}
+          label="Post Code"
+        />
+        <Select
+          onChange={(e) => onEmploymentChange(e.target.value)}
+          value={employment}
+          label="Employment"
+        >
+          <option hidden>Choose employment</option>
+          <option value="unemployed">Unemployed</option>
+          <option value="part-time">Part-time</option>
+          <option value="full-time">Full-time</option>
+          <option value="contract">Contract</option>
+          <option value="student">Student</option>
+        </Select>
+        <Button title="Submit" onClick={handleSubmit} />
+      </Form>
     </div>
   );
 };
