@@ -69,69 +69,67 @@ const EligibilityCheckScreen: React.FC<EligibilityCheckScreenProps> = () => {
   };
 
   return (
-    <div className="container">
-      <Form onSubmit={handleSubmit}>
-        <h1>Check Eligibility</h1>
-        <Select
-          onChange={(e) => onTitleChange(e.target.value)}
-          value={title}
-          label="Title"
-        >
-          <option hidden>Choose title</option>
-          <option value="mr">Mr</option>
-          <option value="mrs">Mrs</option>
-          <option value="miss">Miss</option>
-        </Select>
+    <Form onSubmit={handleSubmit}>
+      <h1>Check Eligibility</h1>
+      <Select
+        onChange={(e) => onTitleChange(e.target.value)}
+        value={title}
+        label="Title"
+      >
+        <option hidden>Choose title</option>
+        <option value="mr">Mr</option>
+        <option value="mrs">Mrs</option>
+        <option value="miss">Miss</option>
+      </Select>
 
-        <Input
-          onChange={(e) => onFirstNameChange(e.target.value)}
-          value={firstName}
-          label="First Name"
-        />
-        <Input
-          onChange={(e) => onLastNameChange(e.target.value)}
-          value={lastName}
-          label="Last Name"
-        />
-        <Input
-          onChange={(e) => onDobChange(e.target.value)}
-          value={dob}
-          type="date"
-          label="Date Of Birth"
-        />
-        <Input
-          onChange={(e) => onIncomeChange(e.target.value)}
-          value={income}
-          type="number"
-          label="Income"
-        />
-        <Input
-          onChange={(e) => onHouseNumberChange(e.target.value)}
-          value={houseNumber}
-          type="number"
-          label="House number"
-        />
-        <Input
-          onChange={(e) => onPostCodeChange(e.target.value)}
-          value={postCode}
-          label="Post Code"
-        />
-        <Select
-          onChange={(e) => onEmploymentChange(e.target.value)}
-          value={employment}
-          label="Employment"
-        >
-          <option hidden>Choose employment</option>
-          <option value="unemployed">Unemployed</option>
-          <option value="part-time">Part-time</option>
-          <option value="full-time">Full-time</option>
-          <option value="contract">Contract</option>
-          <option value="student">Student</option>
-        </Select>
-        <Button title="Submit" onClick={handleSubmit} />
-        {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-      </Form>
-    </div>
+      <Input
+        onChange={(e) => onFirstNameChange(e.target.value)}
+        value={firstName}
+        label="First Name"
+      />
+      <Input
+        onChange={(e) => onLastNameChange(e.target.value)}
+        value={lastName}
+        label="Last Name"
+      />
+      <Input
+        onChange={(e) => onDobChange(e.target.value)}
+        value={dob}
+        type="date"
+        label="Date Of Birth"
+      />
+      <Input
+        onChange={(e) => onIncomeChange(e.target.value)}
+        value={income}
+        type="number"
+        label="Income"
+      />
+      <Input
+        onChange={(e) => onHouseNumberChange(e.target.value)}
+        value={houseNumber}
+        type="number"
+        label="House number"
+      />
+      <Input
+        onChange={(e) => onPostCodeChange(e.target.value)}
+        value={postCode}
+        label="Post Code"
+      />
+      <Select
+        onChange={(e) => onEmploymentChange(e.target.value)}
+        value={employment}
+        label="Employment"
+      >
+        <option hidden>Choose employment</option>
+        <option value="unemployed">Unemployed</option>
+        <option value="part-time">Part-time</option>
+        <option value="full-time">Full-time</option>
+        <option value="contract">Contract</option>
+        <option value="student">Student</option>
+      </Select>
+      <Button title="Submit" onClick={handleSubmit} />
+      {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+    </Form>
   );
 };
 

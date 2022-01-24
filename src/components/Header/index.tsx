@@ -6,9 +6,7 @@ import routes from "../../routes";
 function Header() {
   return (
     <header className={styles.header}>
-      <div className="container">
-        <Link to={routes.LANDING}>Crazy Cards</Link>
-      </div>
+      <Link to={routes.LANDING}>Crazy Cards</Link>
     </header>
   );
 }

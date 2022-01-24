@@ -5,7 +5,7 @@ import EligibilityCheckScreen from "./screens/EligibilityCheck";
 import EligibleCardsScreen from "./screens/EligibleCards";
 import LandingScreen from "./screens/Landing";
 import routes from "./routes";
-import Header from "./screens/Header";
+import Header from "./components/Header";
 
 function App() {
   return (

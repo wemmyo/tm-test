@@ -1,5 +1,9 @@
+.wrapper {
+  padding: 0 15%;
+}
+
 .title {
-  font-size: 50px;
+  font-size: 3rem;
 }
 .bulletpoints {
   margin-top: 30px;

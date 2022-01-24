@@ -1,7 +1,10 @@
 import React from "react";
-import axios from "axios";
+// import axios from "axios";
 import { render } from "@testing-library/react";
 import App from "./App";
+// import { postEligibilityInfo } from "./fetcher";
+
+const axios = require("axios");
 
 const checkEligibility = require("../server/controller/checkEligibility");
 
@@ -42,7 +45,7 @@ const mockUsers = [
     income: 34000,
     employment: "full-time",
     houseNumber: 700,
-    postcode: "BS14 9PR",
+    postCode: "BS14 9PR",
   },
   {
     id: 2,
@@ -53,7 +56,7 @@ const mockUsers = [
     income: 17000,
     employment: "student",
     houseNumber: 177,
-    postcode: "PH12 8UW",
+    postCode: "PH12 8UW",
   },
   {
     id: 3,
@@ -64,7 +67,7 @@ const mockUsers = [
     income: 15000,
     employment: "part-time",
     houseNumber: 343,
-    postcode: "TS25 2NF",
+    postCode: "TS25 2NF",
   },
 ];
 
@@ -82,11 +85,28 @@ describe("Eligibility Function", () => {
   });
 });
 
-// jest.mock("axios");
-
-// describe("API", () => {
-//   test("fetch eligible cards", () => {
-//     const response = { data: mockCards };
-//     axios.get.mockResolvedValue(response);
-//   });
-// });
+jest.mock("axios");
+describe("API", () => {
+  it("returns eligible card", async () => {
+    axios.post.mockResolvedValue({
+      cards: [
+        {
+          id: 2,
+          label: "Anywhere Card",
+          apr: 0.339,
+          balanceTransferOfferDuration: 0,
+          purchaseOfferDuration: 0,
+          credit: 300,
+        },
+        {
+          id: 3,
+          label: "Liquid Card",
+          apr: 0.339,
+          balanceTransferOfferDuration: 12,
+          purchaseOfferDuration: 6,
+          credit: 3000,
+        },
+      ],
+    });
+  });
+});
