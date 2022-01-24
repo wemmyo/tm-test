@@ -1,23 +1,15 @@
 import * as React from "react";
+import { CardI } from "../../types";
 import Card from "../Card";
 
-interface Card {
-  id: number;
-  label: string;
-  apr: number;
-  balanceTransferOfferDuration: number;
-  purchaseOfferDuration: number;
-  credit: number;
-}
-
 interface CardListProps {
-  cards: Card[];
+  cards: CardI[];
 }
 
 const CardList: React.FC<CardListProps> = ({ cards }) => {
   return (
     <div>
-      {cards.map((card: Card) => (
+      {cards.map((card: CardI) => (
         <Card key={card.id} data={card} />
       ))}
     </div>

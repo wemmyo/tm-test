@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useHistory } from "react-router-dom";
 
 import Button from "../../components/Button";
@@ -7,6 +6,7 @@ import Input from "../../components/Input";
 import Select from "../../components/Select";
 import Form from "../../components/Form";
 import routes from "../../routes";
+import { postEligibilityInfo } from "../../fetcher";
 
 interface EligibilityCheckScreenProps {}
 
@@ -19,22 +19,34 @@ const EligibilityCheckScreen: React.FC<EligibilityCheckScreenProps> = () => {
   const [employment, onEmploymentChange] = useState("");
   const [houseNumber, onHouseNumberChange] = useState("");
   const [postCode, onPostCodeChange] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   let history = useHistory();
 
-  // const renderCards = cards.map((card, index) => (
-  //   <p key={index}>{card.label}</p>
-  // ));
-  // console.log(checkEligibility({ employment: "student", income: 17000 }));
-
-  // const submitForm = (values: { employment: string; income: number }) => {
-  //   const eligibleCards = checkEligibility(values);
-  //   setCards(eligibleCards);
-  // };
+  const formErrors = (values: {
+    [x: string]: any;
+    title?: string;
+    firstName?: string;
+    lastName?: string;
+    dob?: string;
+    income?: string;
+    employment?: string;
+    houseNumber?: string;
+    postCode?: string;
+  }) => {
+    const missingFields = [];
+    for (const property in values) {
+      !values[property] && missingFields.push(values[property]);
+    }
+    if (missingFields.length > 0) {
+      return true;
+    }
+    return false;
+  };
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    const user = {
+    const values = {
       title,
       firstName,
       lastName,
@@ -44,15 +56,16 @@ const EligibilityCheckScreen: React.FC<EligibilityCheckScreenProps> = () => {
       houseNumber,
       postCode,
     };
-    const url = "http://localhost:4400/eligibility";
-    // console.log(values);
 
-    const eligibleCards = await axios.post(url, user);
-    console.log(eligibleCards);
-
-    history.push(routes.ELIGIBLE_CARDS, {
-      eligibleCards: eligibleCards.data,
-    });
+    if (formErrors(values)) {
+      setErrorMessage("Please complete all fields");
+    } else {
+      setErrorMessage("");
+      const response = await postEligibilityInfo(values);
+      history.push(routes.ELIGIBLE_CARDS, {
+        eligibleCards: response.cards,
+      });
+    }
   };
 
   return (
@@ -116,6 +129,7 @@ const EligibilityCheckScreen: React.FC<EligibilityCheckScreenProps> = () => {
           <option value="student">Student</option>
         </Select>
         <Button title="Submit" onClick={handleSubmit} />
+        {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
       </Form>
     </div>
   );
