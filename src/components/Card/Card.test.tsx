@@ -1,6 +1,6 @@
 import React from "react";
 import { shallow } from "enzyme";
-import Card from "./index";
+import Card from "../Card";
 
 const mockData = {
   id: 1,

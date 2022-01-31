@@ -10,7 +10,7 @@ const EligibleCardsScreen: React.FC<EligibleCardsScreenProps> = () => {
   const location = useLocation<{
     eligibleCards: CardI[];
   }>();
-  const eligibleCards = location.state.eligibleCards;
+  const eligibleCards = location.state ? location.state.eligibleCards : [];
 
   return (
     <div className={styles.wrapper}>
