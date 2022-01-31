@@ -1,3 +1,45 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders without crashing 1`] = `ShallowWrapper {}`;
+exports[`renders without crashing 1`] = `
+<div>
+  <Card
+    data={
+      Object {
+        "apr": 0.189,
+        "balanceTransferOfferDuration": 0,
+        "credit": 1200,
+        "id": 1,
+        "label": "Student Life",
+        "purchaseOfferDuration": 6,
+      }
+    }
+    key="1"
+  />
+  <Card
+    data={
+      Object {
+        "apr": 0.339,
+        "balanceTransferOfferDuration": 0,
+        "credit": 300,
+        "id": 2,
+        "label": "Anywhere Card",
+        "purchaseOfferDuration": 0,
+      }
+    }
+    key="2"
+  />
+  <Card
+    data={
+      Object {
+        "apr": 0.339,
+        "balanceTransferOfferDuration": 12,
+        "credit": 3000,
+        "id": 3,
+        "label": "Liquid Card",
+        "purchaseOfferDuration": 6,
+      }
+    }
+    key="3"
+  />
+</div>
+`;
