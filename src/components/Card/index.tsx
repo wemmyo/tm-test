@@ -23,7 +23,7 @@ const Card: React.FC<CardProps> = ({ data }) => {
     <div className={styles.card}>
       <p className={styles.label}>{label}</p>
       <p>
-        Apr: <strong>{apr}</strong>
+        Apr: <strong>{(apr * 100).toFixed(1)}%</strong>
       </p>
       <p>
         Balance Transfer Offer Duration:

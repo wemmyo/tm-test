@@ -6,6 +6,7 @@ import EligibleCardsScreen from "./screens/EligibleCards";
 import LandingScreen from "./screens/Landing";
 import routes from "./routes";
 import Header from "./components/Header";
+import PageNotFound from "./screens/PageNotFound";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           component={EligibilityCheckScreen}
         />
         <Route exact path={routes.LANDING} component={LandingScreen} />
+        <Route component={PageNotFound} />
       </Switch>
     </Router>
   );

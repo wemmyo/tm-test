@@ -2,7 +2,7 @@ import React from "react";
 // import axios from "axios";
 import { render } from "@testing-library/react";
 import App from "./App";
-// import { postEligibilityInfo } from "./fetcher";
+import { postEligibilityInfo } from "./fetcher";
 
 const axios = require("axios");
 
@@ -85,28 +85,51 @@ describe("Eligibility Function", () => {
   });
 });
 
-jest.mock("axios");
-describe("API", () => {
-  it("returns eligible card", async () => {
-    axios.post.mockResolvedValue({
-      cards: [
-        {
-          id: 2,
-          label: "Anywhere Card",
-          apr: 0.339,
-          balanceTransferOfferDuration: 0,
-          purchaseOfferDuration: 0,
-          credit: 300,
-        },
-        {
-          id: 3,
-          label: "Liquid Card",
-          apr: 0.339,
-          balanceTransferOfferDuration: 12,
-          purchaseOfferDuration: 6,
-          credit: 3000,
-        },
-      ],
-    });
+// jest.mock("axios");
+// describe("API", () => {
+//   it("returns eligible card", async () => {
+//     axios.post.mockResolvedValue({
+//       cards: [
+//         {
+//           id: 2,
+//           label: "Anywhere Card",
+//           apr: 0.339,
+//           balanceTransferOfferDuration: 0,
+//           purchaseOfferDuration: 0,
+//           credit: 300,
+//         },
+//         {
+//           id: 3,
+//           label: "Liquid Card",
+//           apr: 0.339,
+//           balanceTransferOfferDuration: 12,
+//           purchaseOfferDuration: 6,
+//           credit: 3000,
+//         },
+//       ],
+//     });
+//   });
+// });
+
+describe("async postEligibility function", () => {
+  it("fetched anywhere card", async () => {
+    expect.assertions(1);
+
+    const data = await postEligibilityInfo(mockUsers[0]);
+    expect(data.cards).toHaveLength(2);
+  });
+
+  it("fetched anywhere and liquid cards", async () => {
+    expect.assertions(1);
+
+    const data = await postEligibilityInfo(mockUsers[2]);
+    expect(data.cards).toHaveLength(1);
+  });
+
+  it("fetched anywhere, liquid cards and student card", async () => {
+    expect.assertions(1);
+
+    const data = await postEligibilityInfo(mockUsers[1]);
+    expect(data.cards).toHaveLength(3);
   });
 });

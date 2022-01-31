@@ -2,6 +2,7 @@ import axios from "axios";
 import { UserI } from "../types";
 
 const url = "http://localhost:4400/eligibility";
+// process.env.REACT_APP_BASEURL;
 
 export const postEligibilityInfo = async (user: UserI) => {
   const response = await axios.post(url, user);
