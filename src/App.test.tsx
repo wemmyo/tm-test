@@ -1,10 +1,10 @@
 import React from "react";
-// import axios from "axios";
+import axios from "axios";
 import { render } from "@testing-library/react";
 import App from "./App";
 import { postEligibilityInfo } from "./fetcher";
 
-const axios = require("axios");
+// const axios = require("axios");
 
 const checkEligibility = require("../server/controller/checkEligibility");
 
@@ -85,51 +85,42 @@ describe("Eligibility Function", () => {
   });
 });
 
-// jest.mock("axios");
-// describe("API", () => {
-//   it("returns eligible card", async () => {
-//     axios.post.mockResolvedValue({
-//       cards: [
-//         {
-//           id: 2,
-//           label: "Anywhere Card",
-//           apr: 0.339,
-//           balanceTransferOfferDuration: 0,
-//           purchaseOfferDuration: 0,
-//           credit: 300,
-//         },
-//         {
-//           id: 3,
-//           label: "Liquid Card",
-//           apr: 0.339,
-//           balanceTransferOfferDuration: 12,
-//           purchaseOfferDuration: 6,
-//           credit: 3000,
-//         },
-//       ],
-//     });
+// describe("async postEligibility function", () => {
+//   it("fetched anywhere card", async () => {
+//     expect.assertions(1);
+
+//     const data = await postEligibilityInfo(mockUsers[0]);
+//     expect(data.cards).toHaveLength(2);
+//   });
+
+//   it("fetched anywhere and liquid cards", async () => {
+//     expect.assertions(1);
+
+//     const data = await postEligibilityInfo(mockUsers[2]);
+//     expect(data.cards).toHaveLength(1);
+//   });
+
+//   it("fetched anywhere, liquid cards and student card", async () => {
+//     expect.assertions(1);
+
+//     const data = await postEligibilityInfo(mockUsers[1]);
+//     expect(data.cards).toHaveLength(3);
 //   });
 // });
 
-describe("async postEligibility function", () => {
-  it("fetched anywhere card", async () => {
-    expect.assertions(1);
+describe("postEligibilityInfo", () => {
+  // it('should return empty Map when axios.get failed', async () => {
+  //   const getError = new Error('network error');
+  //   axios.get = jest.fn().mockRejectedValue(getError);
+  //   const actualValue = await postEligibilityInfo(mockUsers[1]);
+  //   expect(actualValue).toEqual(new Map());
+  //   expect(axios.get).toBeCalledWith('/users');
+  // });
 
-    const data = await postEligibilityInfo(mockUsers[0]);
-    expect(data.cards).toHaveLength(2);
-  });
-
-  it("fetched anywhere and liquid cards", async () => {
-    expect.assertions(1);
-
-    const data = await postEligibilityInfo(mockUsers[2]);
-    expect(data.cards).toHaveLength(1);
-  });
-
-  it("fetched anywhere, liquid cards and student card", async () => {
-    expect.assertions(1);
-
-    const data = await postEligibilityInfo(mockUsers[1]);
-    expect(data.cards).toHaveLength(3);
+  it("should return cards", async () => {
+    axios.get = jest.fn().mockResolvedValue(mockCards);
+    const actualValue = await postEligibilityInfo(mockUsers[1]);
+    expect(actualValue.cards).toHaveLength(3);
+    // expect(axios.get).toBeCalledWith("http://localhost:4400/eligibility");
   });
 });
