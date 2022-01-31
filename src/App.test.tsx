@@ -108,19 +108,44 @@ describe("Eligibility Function", () => {
 //   });
 // });
 
-describe("postEligibilityInfo", () => {
-  // it('should return empty Map when axios.get failed', async () => {
-  //   const getError = new Error('network error');
-  //   axios.get = jest.fn().mockRejectedValue(getError);
-  //   const actualValue = await postEligibilityInfo(mockUsers[1]);
-  //   expect(actualValue).toEqual(new Map());
-  //   expect(axios.get).toBeCalledWith('/users');
-  // });
+// describe("postEligibilityInfo", () => {
+//   // it('should return empty Map when axios.get failed', async () => {
+//   //   const getError = new Error('network error');
+//   //   axios.get = jest.fn().mockRejectedValue(getError);
+//   //   const actualValue = await postEligibilityInfo(mockUsers[1]);
+//   //   expect(actualValue).toEqual(new Map());
+//   //   expect(axios.get).toBeCalledWith('/users');
+//   // });
 
-  it("should return cards", async () => {
-    axios.get = jest.fn().mockResolvedValue(mockCards);
-    const actualValue = await postEligibilityInfo(mockUsers[1]);
-    expect(actualValue.cards).toHaveLength(3);
-    // expect(axios.get).toBeCalledWith("http://localhost:4400/eligibility");
-  });
+//   it("should return cards", async () => {
+//     axios.get = jest.fn().mockResolvedValue(mockCards);
+//     const actualValue = await postEligibilityInfo(mockUsers[1]);
+//     expect(actualValue.cards).toHaveLength(3);
+//     // expect(axios.get).toBeCalledWith("http://localhost:4400/eligibility");
+//   });
+// });
+
+it("gets eligible cards", async () => {
+  // const mockFetch = jest.fn().mockReturnValue(
+  //   Promise.resolve({
+  //     json: () =>
+  //       Promise.resolve({
+  //         count: 87,
+  //         results: [0, 1, 2, 3, 4, 5],
+  //       }),
+  //   })
+  // );
+
+  const mockFetch = jest.fn(() =>
+    Promise.resolve({
+      json: () => Promise.resolve({ cards: mockCards }),
+    })
+  );
+
+  // expect.assertions(1);
+  const data = await postEligibilityInfo(mockUsers[1], mockFetch);
+  // expect(mockFetch.mock.calls.length).toBe(1);
+  console.log(data);
+
+  // expect(data.cards).toHaveLength(3);
 });

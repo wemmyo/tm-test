@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 import Button from "../../components/Button";
 import Input from "../../components/Input";
@@ -73,20 +74,20 @@ const EligibilityCheckScreen: React.FC<EligibilityCheckScreenProps> = () => {
       setErrorMessage("Please complete all fields");
     } else {
       setErrorMessage("");
-      const response = await postEligibilityInfo(values);
+      const response = await postEligibilityInfo(values, axios);
 
       history.push(routes.ELIGIBLE_CARDS, {
         eligibleCards: response.cards,
       });
-      try {
-        const response = await postEligibilityInfo(values);
+      // try {
+      //   const response = await postEligibilityInfo(values);
 
-        history.push(routes.ELIGIBLE_CARDS, {
-          eligibleCards: response.cards,
-        });
-      } catch (error) {
-        setErrorMessage("Failed to fetch cards");
-      }
+      //   history.push(routes.ELIGIBLE_CARDS, {
+      //     eligibleCards: response.cards,
+      //   });
+      // } catch (error) {
+      //   setErrorMessage("Failed to fetch cards");
+      // }
     }
   };
 
