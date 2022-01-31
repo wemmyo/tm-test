@@ -1,3 +1,40 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders without crashing 1`] = `ShallowWrapper {}`;
+exports[`renders without crashing 1`] = `
+<div
+  className="card"
+>
+  <p
+    className="label"
+  >
+    Student Life
+  </p>
+  <p>
+    Apr: 
+    <strong>
+      18.9
+      %
+    </strong>
+  </p>
+  <p>
+    Balance Transfer Offer Duration:
+    <strong>
+      0
+       Months
+    </strong>
+  </p>
+  <p>
+    Purchase Offer Duration:
+    <strong>
+      6
+       Months
+    </strong>
+  </p>
+  <p>
+    Credit Available: 
+    <strong>
+      1200
+    </strong>
+  </p>
+</div>
+`;

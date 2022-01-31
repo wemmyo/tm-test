@@ -1,3 +1,111 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders without crashing 1`] = `ShallowWrapper {}`;
+exports[`renders without crashing 1`] = `
+<Form
+  onSubmit={[Function]}
+>
+  <h1>
+    Check Eligibility
+  </h1>
+  <Select
+    label="Title"
+    onChange={[Function]}
+    value=""
+  >
+    <option
+      hidden={true}
+    >
+      Choose title
+    </option>
+    <option
+      value="mr"
+    >
+      Mr
+    </option>
+    <option
+      value="mrs"
+    >
+      Mrs
+    </option>
+    <option
+      value="miss"
+    >
+      Miss
+    </option>
+  </Select>
+  <Input
+    label="First Name"
+    onChange={[Function]}
+    value=""
+  />
+  <Input
+    label="Last Name"
+    onChange={[Function]}
+    value=""
+  />
+  <Input
+    label="Date Of Birth"
+    onChange={[Function]}
+    type="date"
+    value=""
+  />
+  <Input
+    label="Income"
+    onChange={[Function]}
+    type="number"
+    value=""
+  />
+  <Input
+    label="House number"
+    onChange={[Function]}
+    type="number"
+    value=""
+  />
+  <Input
+    label="Post Code"
+    onChange={[Function]}
+    value=""
+  />
+  <Select
+    label="Employment"
+    onChange={[Function]}
+    value=""
+  >
+    <option
+      hidden={true}
+    >
+      Choose employment
+    </option>
+    <option
+      value="unemployed"
+    >
+      Unemployed
+    </option>
+    <option
+      value="part-time"
+    >
+      Part-time
+    </option>
+    <option
+      value="full-time"
+    >
+      Full-time
+    </option>
+    <option
+      value="contract"
+    >
+      Contract
+    </option>
+    <option
+      value="student"
+    >
+      Student
+    </option>
+  </Select>
+  <Button
+    id="submitBtn"
+    onClick={[Function]}
+    title="Submit"
+  />
+</Form>
+`;
